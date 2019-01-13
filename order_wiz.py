@@ -3,6 +3,7 @@ from dicttoxml import dicttoxml
 from xml.dom.minidom import parseString
 from pathlib import Path
 import PIL
+import glob
 
 print('*****************************************')
 print('**                                     **')
@@ -13,6 +14,18 @@ print('**                                     **')
 DONE = False
 
 while DONE == False:
+  # list xlsx files currently in the inputs folder
+  print('*****************************************')
+  print(" ")
+  print("Files available to process: ")
+  print(" ")
+
+  available_files = glob.glob("inputs/*.xlsx")
+
+  for xlsx in available_files:
+    print(xlsx[7:])
+
+  print(" ")
 
   # ask user for input filename... file is expected in inputs/ subdirectory
   print('*****************************************')
@@ -24,10 +37,6 @@ while DONE == False:
 
   # if input file exists then off to the races
   if my_input.is_file():
-
-
-
-
 
     print(" ")
     print(input_fn + " is a:")
@@ -88,11 +97,6 @@ while DONE == False:
       col4_ship = 'n/a'
       # line params
       max_line_number = 149
-
-
-
-
-
 
     # read in the spreadsheet
     wb = load_workbook("inputs/" + input_fn, data_only=True)
