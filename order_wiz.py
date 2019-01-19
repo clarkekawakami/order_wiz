@@ -226,11 +226,11 @@ while DONE == False:
 
     print(parseString(preseason_order).toprettyxml())
     print('*****************************************')
-    print("writing to file " + customer_number + "_" + shp_addr_id + "_" + output_filetype + ".xml in 'outputs' folder")
+    print("writing to file " + customer_number + "_" + str(shp_addr_id) + "_" + output_filetype + ".xml in 'outputs' folder")
     print('*****************************************')
 
     # write output file
-    output_file = open("outputs/" + customer_number + "_" + shp_addr_id + "_" + output_filetype + ".xml", "w")
+    output_file = open("outputs/" + customer_number + "_" + str(shp_addr_id) + "_" + output_filetype + ".xml", "w")
     output_file.write(parseString(preseason_order).toprettyxml())
     output_file.close()
 
