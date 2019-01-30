@@ -145,16 +145,16 @@ while DONE == False:
         if row[11].value is None:
           row[11].value = 0
         elif row[11].value == 'N/C':
+          # print('found n/c')
           row[11].value = 0          
         net_price = round(row[11].value, 2)
-        if row[4].value is None:
-          row[4].value = 0
-        if row[5].value is None:
-          row[5].value = 0
-        if row[6].value is None:
-          row[6].value = 0
-        if row[7].value is None:
-          row[7].value = 0
+
+        # check input quantities to make sure they are integers
+        for x in range(4, 8):
+          if type(row[x].value) != int:
+            row[x].value = 0
+
+        # print(sku, row[11].value, row[4].value, row[5].value, row[6].value, row[7].value)
         total_sku_units = row[4].value + row[5].value + row[6].value + row[7].value
         # only need to process the line if there are some units ordered
         if total_sku_units > 0: # some units ordered for this sku so create order lines
@@ -224,16 +224,16 @@ while DONE == False:
     # build the orders file 
     preseason_order = dicttoxml(orders, attr_type=False, custom_root='orders', item_func=my_item_func)
 
+    # write output file
     print(parseString(preseason_order).toprettyxml())
     print('*****************************************')
-    print("writing to file " + customer_number + "_" + str(shp_addr_id) + "_" + output_filetype + ".xml in 'outputs' folder")
+    print("writing to file " + str(customer_number) + "_" + str(shp_addr_id) + "_" + output_filetype + ".xml in 'outputs' folder")
     print('*****************************************')
-
-    # write output file
-    output_file = open("outputs/" + customer_number + "_" + str(shp_addr_id) + "_" + output_filetype + ".xml", "w")
+    output_file = open("outputs/" + str(customer_number) + "_" + str(shp_addr_id) + "_" + output_filetype + ".xml", "w")
     output_file.write(parseString(preseason_order).toprettyxml())
     output_file.close()
 
+    # end? or another file?
     print(" ")
     print("Finished Processing " + input_fn)
     print('*****************************************')
