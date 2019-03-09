@@ -4,6 +4,39 @@ from xml.dom.minidom import parseString
 from pathlib import Path
 import PIL
 import glob
+import re
+
+# *****************************************
+# Function Definitions
+# *****************************************
+
+def get_valid_order_type(input_filename):
+  valid_input = False
+  regex = r"[1234]"
+
+  while valid_input == False:
+    print(" ")
+    print(input_filename + " is a:")
+    print("  #1: SKI PRSN order")
+    print("  #2: PHANTOM PRSN order")
+    print("  #3: DREAMTIME order")
+    print("  #4: DEMO/RENTAL order")
+    print(" ")
+    ordertype = input("Enter order type [1, 2, 3 or 4]: ")
+
+    if re.search(regex, ordertype):
+      valid_input = True
+    else:
+      print(" ")
+      print('*****************************************')
+      print("           INVALID Input!")
+      print('*****************************************')
+  
+  return ordertype
+
+# *****************************************
+# Main Program
+# *****************************************
 
 print('*****************************************')
 print('**                                     **')
@@ -38,14 +71,16 @@ while DONE == False:
   # if input file exists then off to the races
   if my_input.is_file():
 
-    print(" ")
-    print(input_fn + " is a:")
-    print("  #1: SKI PRSN order")
-    print("  #2: PHANTOM PRSN order")
-    print("  #3: DREAMTIME order")
-    print("  #4: DEMO/RENTAL order")
-    print(" ")
-    input_ordertype = input("Enter order type [1, 2, 3 or 4]: ")
+    # print(" ")
+    # print(input_fn + " is a:")
+    # print("  #1: SKI PRSN order")
+    # print("  #2: PHANTOM PRSN order")
+    # print("  #3: DREAMTIME order")
+    # print("  #4: DEMO/RENTAL order")
+    # print(" ")
+    # input_ordertype = input("Enter order type [1, 2, 3 or 4]: ")
+
+    input_ordertype = get_valid_order_type(input_fn)
 
     # my_input = Path("inputs/" + input_fn)
 
